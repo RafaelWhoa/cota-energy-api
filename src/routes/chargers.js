@@ -6,12 +6,14 @@ const Charger = require('../models/Charger.js');
 const logger = require("../logger.js");
 const e = require("express");
 
+// Get all chargers
 chargers_router.get('/', async (req, res) => {
     const chargers = await Charger.findAll()
         .catch((error) => {logger.error("Failed to get data from database: ", error.message)});
     res.status(200).json(chargers);
 })
 
+// Get charger by id
 chargers_router.get('/:id', async (req, res) => {
     const id = req.params.id
     const getCharger = async () => {
@@ -31,6 +33,7 @@ chargers_router.get('/:id', async (req, res) => {
     }
 })
 
+// Register charger
 chargers_router.post('/register', async (req, res) => {
     try {
         const charger = await Charger.create({
@@ -43,6 +46,15 @@ chargers_router.post('/register', async (req, res) => {
     catch (error) {
         res.status(400).json({message: "Failed to save charger", error: error})
     }
+})
+
+chargers_router.delete('/delete/:id', (req, res) => {
+    const paramsId = req.params.id;
+    Charger.destroy({
+        where: {id: paramsId}
+    })
+        .then(() => {res.status(200).json({message: "Charger deleted successfully"})})
+        .catch((error) => {res.status(400).json({message: "Failed to delete charger", error: error})})
 })
 
 module.exports.chargers = chargers_router;
