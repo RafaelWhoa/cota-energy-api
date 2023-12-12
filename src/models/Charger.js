@@ -19,7 +19,6 @@ const Charger = sequelize.define('Charger', {
     },
     charger_plugs: {
         type: DataTypes.INTEGER,
-        allowNull: false
     },
     charger_status: {
         type: DataTypes.INTEGER,
