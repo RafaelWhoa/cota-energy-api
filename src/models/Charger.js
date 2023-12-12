@@ -35,7 +35,7 @@ const Charger = sequelize.define('Charger', {
     },
 });
 
-Charger.sync({force: true})
+Charger.sync()
     .then(() => {logger.info("Chargers table synced!")})
     .catch((error) => {logger.error("Chargers table sync failed: ", error.message)});
 
