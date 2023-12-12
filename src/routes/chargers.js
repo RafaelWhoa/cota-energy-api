@@ -1,16 +1,14 @@
 const express = require("express");
 const chargers_router = express.Router();
 const  { Sequelize } = require('sequelize');
-const { dbConnection } = require('../config/dbConnection.js');
+const { sequelize } = require('../config/dbConnection.js');
 const Charger = require('../models/Charger.js');
 const logger = require("../logger.js");
 
-dbConnection().catch(console.error);
-
 chargers_router.get('/', (req, res) => {
-    const chargers = dbConnection.findAll()
+    const chargers = Charger.findAll()
         .catch((error) => {logger.error("Failed to get data from database: ", error.message)});
-    res.JSON(chargers);
+    res.status(300).json(chargers);
 })
 
 module.exports.chargers = chargers_router;
