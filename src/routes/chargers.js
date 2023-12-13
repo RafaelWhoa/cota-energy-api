@@ -1,10 +1,7 @@
 const express = require("express");
 const chargers_router = express.Router();
-const {Sequelize, DataTypes} = require('sequelize');
-const {sequelize} = require('../config/dbConnection.js');
 const Charger = require('../models/Charger.js');
 const logger = require("../logger.js");
-const e = require("express");
 
 // Get all chargers
 chargers_router.get('/', async (req, res) => {
@@ -50,6 +47,10 @@ chargers_router.post('/register', async (req, res) => {
     }
 })
 
+/**
+ * Update charger data
+ * @param id Charger id to be updated
+ */
 chargers_router.put('/:id', async (req, res) => {
     const chargerId = req.params.id;
     const chargerCode = req.body.charger_code;
@@ -74,7 +75,7 @@ chargers_router.put('/:id', async (req, res) => {
         await updateChargerData();
     }
     catch (error) {
-        res.status(400).json({message: "Failed while updating charger data", error: error})
+        res.status(400).json({message: "Charger not found, check id", error: error})
     }
 })
 
