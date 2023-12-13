@@ -10,6 +10,6 @@ const PORT = 8080;
 app.use(express.json());
 app.use("/chargers", chargers_router);
 
-app.listen(PORT || process.env.PORT, () => console.log(`Server is running at http://localhost:${PORT}/`));
+app.listen(PORT || process.env.PORT, () => {logger.info(`Server is running at http://localhost:${PORT}/`)});
 
 dbConnection().catch((error) => {logger.error("Unable to connect to the database:", error)});
