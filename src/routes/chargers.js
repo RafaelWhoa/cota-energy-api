@@ -1,13 +1,14 @@
-const express = require("express");
+import express from "express";
 const chargers_router = express.Router();
-const Charger = require('../models/Charger.js');
-const logger = require("../logger.js");
+import { Charger } from "../models/Charger.js";
+import logger from "../logger.js";
 
 // Get all chargers
 chargers_router.get('/', async (req, res) => {
     const chargers = await Charger.findAll()
         .catch((error) => {
-            logger.error("Failed to get data from database: ", error.message)
+            logger.error("Failed to get data from database: ", error)
+            res.status(400).json({message: "Failed to get charger from database", error: error})
         });
     res.status(200).json(chargers);
 })
@@ -96,4 +97,4 @@ chargers_router.delete('/delete/:id', (req, res) => {
         })
 })
 
-module.exports.chargers = chargers_router;
+export default chargers_router;

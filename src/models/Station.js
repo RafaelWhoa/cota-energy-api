@@ -1,9 +1,9 @@
-const { sequelize } = require('../config/dbConnection.js');
-const { DataTypes } = require("sequelize");
-const logger = require("../logger");
-const Charger = require('./Charger.js');
+import {sequelize} from "../config/dbConnection.js";
+import {DataTypes} from "sequelize";
+import {Charger} from "./Charger.js";
+import logger from "../logger.js";
 
-const Station = sequelize.define('Station', {
+export const Station = sequelize.define("stations", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -21,9 +21,3 @@ const Station = sequelize.define('Station', {
 
 Station.hasMany(Charger);
 Charger.belongsTo(Station);
-
-Station.sync({force: true})
-    .then(() => {logger.info("Station table synced!")})
-    .catch((error) => {logger.error("Station table sync failed: ", error.message)});
-
-module.exports = Station;
