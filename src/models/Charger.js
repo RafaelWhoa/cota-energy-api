@@ -1,6 +1,5 @@
 import {sequelize} from "../config/dbConnection.js";
 import {DataTypes} from "sequelize";
-import logger from "../logger.js";
 
 
 export const Charger = sequelize.define("chargers", {

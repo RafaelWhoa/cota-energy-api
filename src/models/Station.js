@@ -1,7 +1,6 @@
 import {sequelize} from "../config/dbConnection.js";
 import {DataTypes} from "sequelize";
 import {Charger} from "./Charger.js";
-import logger from "../logger.js";
 
 export const Station = sequelize.define("stations", {
     id: {
