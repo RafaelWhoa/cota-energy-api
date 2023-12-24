@@ -11,6 +11,22 @@ stations_router.get('/', async (req, res) => {
     res.status(200).json(stations);
 })
 
+/**
+ * Get station by id
+ * @param id Station id to be found
+ */
+stations_router.get('/:id', async (req, res) => {
+  const station = await Station.findByPk(req.params.id).catch((error) => {
+    res.status(400).json({message: "Failed to retrieve station from database", error: error});
+  });
+  if (station === null) {
+    res.status(404).json({message: "Station not found"});
+  }
+  else {
+    res.status(200).json(station);
+  }
+})
+
 // Register a new station
 stations_router.post('/register', async (req, res) => {
     try {
