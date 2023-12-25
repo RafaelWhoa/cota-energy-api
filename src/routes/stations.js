@@ -2,6 +2,7 @@ import express from "express";
 const stations_router = express.Router();
 import { Station } from "../models/Station.js";
 import logger from "../logger.js";
+import {Charger} from "../models/Charger.js";
 
 // Get all stations
 stations_router.get('/', async (req, res) => {
@@ -36,6 +37,34 @@ stations_router.post('/register', async (req, res) => {
         res.status(201).json({message: "Station saved successfully", station: station});
     } catch (error) {
         res.status(400).json({message: "Failed to save station", error: error});
+    }
+})
+
+/**
+ * Update station data
+ * @param id Station id to be updated
+ */
+stations_router.put('/:id', async (req, res) => {
+    const stationId = req.params.id;
+    const stationName = req.body.station_name;
+    const updateStationData = async () => {
+        const station = await Station.findByPk(stationId);
+        if (station !== undefined) {
+            await station.update({
+                station_name: stationName !== undefined ? stationName : station.dataValues.charger_code
+            })
+            await station.save();
+            res.status(200).json({message: "Station data updated successfully", station: station})
+        }
+        else {
+            throw new Error();
+        }
+    }
+    try {
+        await updateStationData();
+    }
+    catch (error) {
+        res.status(400).json({message: "Station not found, check id", error: error.message})
     }
 })
 
