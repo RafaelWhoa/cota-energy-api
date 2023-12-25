@@ -1,8 +1,8 @@
-const { sequelize } = require('../config/dbConnection.js');
-const {DataTypes} = require("sequelize");
-const logger = require("../logger");
+import {sequelize} from "../config/dbConnection.js";
+import {DataTypes} from "sequelize";
 
-const Charger = sequelize.define('Charger', {
+
+export const Charger = sequelize.define("chargers", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -19,13 +19,9 @@ const Charger = sequelize.define('Charger', {
     },
     charger_plugs: {
         type: DataTypes.INTEGER,
-        allowNull: false
     },
     charger_status: {
         type: DataTypes.INTEGER,
-    },
-    charger_station: {
-        type: DataTypes.STRING,
     },
     charger_price: {
         type: DataTypes.INTEGER,
@@ -35,9 +31,3 @@ const Charger = sequelize.define('Charger', {
         allowNull: false
     },
 });
-
-Charger.sync({force: true})
-    .then(() => {logger.info("Chargers table synced!")})
-    .catch((error) => {logger.error("Chargers table sync failed: ", error.message)});
-
-module.exports = Charger;

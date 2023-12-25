@@ -1,19 +1,24 @@
-const { Sequelize } = require('sequelize');
-const logger = require("../logger");
-require('dotenv').config();
+import {Sequelize} from "sequelize";
+import logger from "../logger.js";
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+import dotenv from "dotenv";
+dotenv.config();
+
+export const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: 'localhost',
     dialect: 'postgres'
 });
 
-const dbConnection = async () => {
+export const dbConnection = async () => {
     try {
         await sequelize.authenticate();
-        logger.info("Connection with database has been established successfully.");
+        await sequelize.sync({}).then(() => {
+            logger.info("Tables synced successfully.")
+        }).catch((error) => {
+            logger.error("Unable to sync tables:" + error.message)
+        });
+        logger.info(`Connection with database ${process.env.DB_NAME} has been established successfully.`);
     } catch (error) {
         logger.error("Unable to connect to the database:", error);
     }
-}
-
-module.exports = { dbConnection, sequelize };
+};

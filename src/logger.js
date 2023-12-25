@@ -1,3 +1,4 @@
-const pino = require('pino');
+import pino from 'pino';
 const logger = pino();
-module.exports = logger;
+
+export default logger;
