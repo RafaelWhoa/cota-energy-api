@@ -39,4 +39,21 @@ stations_router.post('/register', async (req, res) => {
     }
 })
 
+/**
+ * Delete station
+ * @param id Station id to be deleted
+ */
+stations_router.delete('/delete/:id', async (req, res) => {
+  const stationId = req.params.id;
+  Station.destroy({
+      where: {
+          id: stationId
+      }
+  }).then(() => {
+      res.status(200).json({message: "Station deleted successfully"});
+  }).catch((error) => {
+        res.status(400).json({message: "Failed to delete station", error: error});
+  })
+})
+
 export default stations_router;
