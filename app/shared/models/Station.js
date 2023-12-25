@@ -1,4 +1,4 @@
-import {sequelize} from "../config/dbConnection.js";
+import {sequelize} from "../db/db.connection.js";
 import {DataTypes} from "sequelize";
 import {Charger} from "./Charger.js";
 

@@ -1,5 +1,5 @@
 import {Sequelize} from "sequelize";
-import logger from "../logger.js";
+import { logger } from "../utils/utils.index.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,7 +9,7 @@ export const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER,
     dialect: 'postgres'
 });
 
-export const dbConnection = async () => {
+export const DbConnection = async () => {
     try {
         await sequelize.authenticate();
         await sequelize.sync({}).then(() => {

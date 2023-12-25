@@ -1,23 +1,23 @@
-import express from "express";
-const chargers_router = express.Router();
-import { Charger } from "../models/Charger.js";
-import logger from "../logger.js";
+import {Charger} from "../../shared/models/Charger.js";
 
-// Get all chargers
-chargers_router.get('/', async (req, res) => {
-    const chargers = await Charger.findAll()
-        .catch((error) => {
-            logger.error("Failed to get data from database: ", error)
-            res.status(400).json({message: "Failed to get charger from database", error: error})
-        });
+/**
+ * Get all chargers
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
+export const getAllChargers = async (req, res) => {
+    const chargers = await Charger.findAll();
     res.status(200).json(chargers);
-})
+}
 
 /**
  * Get charger by id
- * @param id Charger id to be found
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
  */
-chargers_router.get('/:id', async (req, res) => {
+export const getChargerById = async (req, res) => {
     const id = req.params.id
     const getCharger = async () => {
         const charger = await Charger.findByPk(id)
@@ -32,10 +32,15 @@ chargers_router.get('/:id', async (req, res) => {
     } catch (error) {
         res.status(404).json({message: "Charger not found", error: error})
     }
-})
+}
 
-// Register charger
-chargers_router.post('/register', async (req, res) => {
+/**
+ * Register charger
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
+export const createCharger = async (req, res) => {
     try {
         const charger = await Charger.create({
             charger_code: req.body.charger_code,
@@ -46,13 +51,15 @@ chargers_router.post('/register', async (req, res) => {
     } catch (error) {
         res.status(400).json({message: "Failed to save charger", error: error})
     }
-})
+}
 
 /**
  * Update charger data
- * @param id Charger id to be updated
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
  */
-chargers_router.put('/:id', async (req, res) => {
+export const updateCharger = async (req, res) => {
     const chargerId = req.params.id;
     const chargerCode = req.body.charger_code;
     const chargerPower = req.body.charger_power;
@@ -67,24 +74,24 @@ chargers_router.put('/:id', async (req, res) => {
             })
             await charger.save();
             res.status(200).json({message: "Charger data updated successfully", charger: charger})
-        }
-        else {
+        } else {
             throw new Error();
         }
     }
     try {
         await updateChargerData();
-    }
-    catch (error) {
+    } catch (error) {
         res.status(400).json({message: "Charger not found, check id", error: error})
     }
-})
+}
 
 /**
  * Delete charger by id
- * @param id Id of the charger to be deleted
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
  */
-chargers_router.delete('/delete/:id', (req, res) => {
+export const deleteCharger = async (req, res) => {
     const chargerId = req.params.id;
     Charger.destroy({
         where: {id: chargerId}
@@ -95,6 +102,4 @@ chargers_router.delete('/delete/:id', (req, res) => {
         .catch((error) => {
             res.status(400).json({message: "Failed to delete charger", error: error})
         })
-})
-
-export default chargers_router;
+}
