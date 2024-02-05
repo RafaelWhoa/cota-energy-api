@@ -1,5 +1,6 @@
 import {sequelize} from "../db/db.connection.js";
 import {DataTypes} from "sequelize";
+import {Connector} from "./Connector.js";
 
 
 export const Charger = sequelize.define("chargers", {
@@ -31,3 +32,6 @@ export const Charger = sequelize.define("chargers", {
         allowNull: false
     },
 });
+
+Charger.hasMany(Connector);
+Connector.belongsTo(Charger);

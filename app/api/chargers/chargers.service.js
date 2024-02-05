@@ -45,7 +45,8 @@ export const createCharger = async (req, res) => {
         const charger = await Charger.create({
             charger_code: req.body.charger_code,
             charger_power: req.body.charger_power,
-            charger_connNumber: req.body.charger_connNumber
+            charger_connNumber: req.body.charger_connNumber,
+            stationId: req.body.stationId
         })
         res.status(201).json({message: "Charger saved successfully", charger: charger})
     } catch (error) {
