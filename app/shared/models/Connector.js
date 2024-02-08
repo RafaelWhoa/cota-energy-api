@@ -5,19 +5,18 @@ export const Connector = sequelize.define("connectors", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    connectorType: {
+    connector_type: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    connPower: {
+    conn_power: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    available: {
+    is_available: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
     }

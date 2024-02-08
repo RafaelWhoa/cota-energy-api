@@ -43,13 +43,13 @@ export const getConnectorById = async (req, res) => {
 export const createConnector = async (req, res) => {
     try {
         const connector = await Connector.create({
-            connectorType: req.body.connectorType,
-            connPower: req.body.connPower,
-            available: req.body.available
+            connector_type: req.body.connector_type,
+            conn_power: req.body.conn_power,
+            is_available: req.body.is_available
         })
         res.status(201).json({message: "Connector saved successfully", connector: connector})
     } catch (error) {
-        res.status(400).json({message: "Failed to save connector", error: error})
+        res.status(400).json({message: "Failed to save connector: " + error.message, error: error})
     }
 }
 
@@ -60,16 +60,16 @@ export const createConnector = async (req, res) => {
  * @returns {Promise<void>}
  */
 export const updateConnector = async (req, res) => {
-    const connectorId = req.params.id;
-    const connectorType = req.body.connectorType;
-    const connPower = req.body.connPower;
-    const available = req.body.available;
+    const connector_id = req.params.id;
+    const connector_type = req.body.connector_type;
+    const conn_power = req.body.conn_power;
+    const is_available = req.body.is_available;
     const updateConnectorData = async () => {
-        const connector = await Connector.findByPk(connectorId);
+        const connector = await Connector.findByPk(connector_id);
         if (connector !== null) {
-            connector.connectorType = connectorType;
-            connector.connPower = connPower;
-            connector.available = available;
+            connector.connector_type = connector_type;
+            connector.conn_power = conn_power;
+            connector.is_available = is_available;
             await connector.save();
             res.status(200).json({message: "Connector updated successfully", connector: connector});
         } else {

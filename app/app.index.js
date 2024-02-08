@@ -3,6 +3,7 @@ import stations_router from "./api/stations/stations.router.js";
 import chargers_router from "./api/chargers/chargers.router.js";
 import { DbConnection, sequelize } from "./shared/db/db.connection.js";
 import { logger } from "./shared/utils/utils.index.js";
+import connectors_router from "./api/connectors/connectors.router.js";
 
 const app = express();
 
@@ -15,3 +16,4 @@ DbConnection().catch((error) => {logger.error("Unable to connect to the database
 app.use(express.json());
 app.use("/stations", stations_router);
 app.use("/chargers", chargers_router);
+app.use("/connectors", connectors_router);
