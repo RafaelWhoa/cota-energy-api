@@ -46,7 +46,7 @@ export const createCharger = async (req, res) => {
             charger_code: req.body.charger_code,
             charger_power: req.body.charger_power,
             charger_connNumber: req.body.charger_connNumber,
-            stationId: req.body.stationId
+            station_id: req.body.station_id
         })
         res.status(201).json({message: "Charger saved successfully", charger: charger})
     } catch (error) {
@@ -65,6 +65,7 @@ export const updateCharger = async (req, res) => {
     const chargerCode = req.body.charger_code;
     const chargerPower = req.body.charger_power;
     const chargerConnNumber = req.body.charger_connNumber;
+    const station_id = req.body.station_id
     const updateChargerData = async () => {
         const charger = await Charger.findByPk(chargerId);
         if (charger !== undefined) {
@@ -72,6 +73,7 @@ export const updateCharger = async (req, res) => {
                 charger_code: chargerCode !== undefined ? chargerCode : charger.dataValues.charger_code,
                 charger_power: chargerPower !== undefined ? chargerPower : charger.dataValues.charger_power,
                 charger_connNumber: chargerConnNumber !== undefined ? chargerConnNumber : charger.dataValues.charger_connNumber,
+                station_id: station_id !== undefined ? station_id : charger.dataValues.station_id
             })
             await charger.save();
             res.status(200).json({message: "Charger data updated successfully", charger: charger})

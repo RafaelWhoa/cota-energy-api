@@ -4,6 +4,8 @@ import chargers_router from "./api/chargers/chargers.router.js";
 import { DbConnection, sequelize } from "./shared/db/db.connection.js";
 import { logger } from "./shared/utils/utils.index.js";
 import connectors_router from "./api/connectors/connectors.router.js";
+import {Charger} from "./shared/models/Charger.js";
+import {Station} from "./shared/models/Station.js";
 
 const app = express();
 

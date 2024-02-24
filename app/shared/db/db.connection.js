@@ -11,7 +11,7 @@ export const sequelize = new Sequelize(
 export const DbConnection = async () => {
     try {
         await sequelize.authenticate();
-        await sequelize.sync({}).then(() => {
+        await sequelize.sync({force: true}).then(() => {
             logger.info("Tables synced successfully.")
         }).catch((error) => {
             logger.error("Unable to sync tables: " + error.message)

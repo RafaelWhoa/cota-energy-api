@@ -18,5 +18,8 @@ export const Station = sequelize.define("stations", {
     }
 });
 
-Station.hasMany(Charger);
-Charger.belongsTo(Station);
+Station.hasMany(Charger, {
+    foreignKey: "station_id",
+});
+Charger.belongsTo(Station, {
+    foreignKey: "station_id"});
