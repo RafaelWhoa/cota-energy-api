@@ -1,4 +1,5 @@
 import {Station} from "../../shared/models/Station.js";
+import {logger} from "../../shared/utils/utils.index.js";
 
 /**
  * Get all stations
@@ -95,4 +96,15 @@ export const deleteStation = async (req, res) => {
     }).catch((error) => {
         res.status(400).json({message: "Failed to delete station", error: error});
     })
+}
+
+export const createStationMock = async (stationMocks) => {
+    for (const station of stationMocks){
+        await Station.create({
+            station_name: station.station_name,
+            station_address: station.station_address
+        }).catch((error) => {
+            console.log("Failed to save station: " + logger.error("Failed to save station mock: " + error.message));
+        });
+    }
 }
