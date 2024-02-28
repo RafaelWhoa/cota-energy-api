@@ -1,10 +1,7 @@
 import {User} from "../../shared/models/User.js";
-import * as crypto from "crypto";
+import {hashPassword} from "../../shared/utils/utils.index.js";
 
-const hashPassword = (password) => {
-    const salt = crypto.randomBytes(32);
-    return crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex');
-}
+
 
 export const getAllUsers = async (req, res) => {
     const users = await User.findAll().catch((error) => {

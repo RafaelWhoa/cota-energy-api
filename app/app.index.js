@@ -8,6 +8,7 @@ import {createChargerMock, createStationMock} from "./shared/db/Mocks.js";
 import {stationsMocks} from "./api/stations/mock/StationsMock.js";
 import {chargersMocks} from "./api/chargers/mock/ChargersMock.js";
 import users_router from "./api/users/users.router.js";
+import auth_router from "./api/auth/auth.router.js";
 
 const app = express();
 
@@ -25,3 +26,4 @@ app.use("/stations", stations_router);
 app.use("/chargers", chargers_router);
 app.use("/connectors", connectors_router);
 app.use("/users", users_router);
+app.use("/auth", auth_router);
