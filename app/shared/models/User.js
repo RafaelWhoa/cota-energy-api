@@ -12,7 +12,7 @@ export const User = sequelize.define("users", {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    lastname: {
+    last_name: {
         type: DataTypes.STRING,
     },
     email: {

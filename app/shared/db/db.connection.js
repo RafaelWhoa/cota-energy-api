@@ -10,13 +10,14 @@ export const sequelize = new Sequelize(
 
 export const DbConnection = async () => {
     try {
-        await sequelize.authenticate();
+        await sequelize.authenticate().then(() => {
+            logger.info(`Connection with database ${process.env.DB_NAME} has been established successfully.`);
+        });
         await sequelize.sync({force: true}).then(() => {
             logger.info("Tables synced successfully.")
         }).catch((error) => {
             logger.error("Unable to sync tables: " + error.message)
         });
-        logger.info(`Connection with database ${process.env.DB_NAME} has been established successfully.`);
     } catch (error) {
         logger.error("Unable to connect to the database:" + error.message);
     }

@@ -7,6 +7,7 @@ import { logger } from "./shared/utils/utils.index.js";
 import {createChargerMock, createStationMock} from "./shared/db/Mocks.js";
 import {stationsMocks} from "./api/stations/mock/StationsMock.js";
 import {chargersMocks} from "./api/chargers/mock/ChargersMock.js";
+import users_router from "./api/users/users.router.js";
 
 const app = express();
 
@@ -23,3 +24,4 @@ app.use(express.json());
 app.use("/stations", stations_router);
 app.use("/chargers", chargers_router);
 app.use("/connectors", connectors_router);
+app.use("/users", users_router);
