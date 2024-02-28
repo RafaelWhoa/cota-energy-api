@@ -18,9 +18,6 @@ export const Charger = sequelize.define("chargers", {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    charger_plugs: {
-        type: DataTypes.INTEGER,
-    },
     charger_status: {
         type: DataTypes.INTEGER,
     },
@@ -29,7 +26,6 @@ export const Charger = sequelize.define("chargers", {
     },
     charger_connNumber: {
         type: DataTypes.INTEGER,
-        allowNull: false
     },
 });
 

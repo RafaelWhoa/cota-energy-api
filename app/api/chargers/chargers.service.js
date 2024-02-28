@@ -1,4 +1,5 @@
 import {Charger} from "../../shared/models/Charger.js";
+import {logger} from "../../shared/utils/utils.index.js";
 
 /**
  * Get all chargers

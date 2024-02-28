@@ -1,4 +1,4 @@
-import {sequelize} from "../db/db.connection.js";
+import {sequelize} from "../db/db.connection.js"
 import {DataTypes} from "sequelize";
 
 export const Connector = sequelize.define("connectors", {
