@@ -12,12 +12,18 @@ export const getAllUsers = async (req, res) => {
 
 export const registerUser = async (req, res) => {
     try{
-        const user = await User.create({
-            name: req.body.name,
-            email: req.body.email,
-            password: hashPassword(req.body.password)
-        });
-        res.status(201).json({message: "User registered successfully", user: user});
+        const emailExists = await User.findOne({where: {email: req.body.email}});
+        if(!emailExists) {
+            const user = await User.create({
+                name: req.body.name,
+                email: req.body.email,
+                password: hashPassword(req.body.password)
+            });
+            res.status(201).json({message: "User registered successfully", user: user});
+        } else {
+            res.status(400).json({message: "Email already exists"});
+        }
+
     } catch (error) {
         res.status(400).json({message: "Failed to register user", error: error.message})
     }
