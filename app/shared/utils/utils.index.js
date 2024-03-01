@@ -4,5 +4,5 @@ import {hashPassword} from "./passHashing.utils.js";
 
 export {
     LoggerUtils as logger,
-    hashPassword
+    hashPassword,
 }

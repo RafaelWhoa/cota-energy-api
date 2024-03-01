@@ -1,10 +1,11 @@
 import {sequelize} from "../db/db.connection.js"
 import {DataTypes} from "sequelize";
+import {Charging} from "./Charging.js";
 
 export const Connector = sequelize.define("connectors", {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
@@ -21,3 +22,11 @@ export const Connector = sequelize.define("connectors", {
         allowNull: false,
     }
 })
+
+Connector.hasMany(Charging, {
+    foreignKey: "connector_id",
+});
+
+Charging.belongsTo(Connector, {
+    foreignKey: "connector_id"
+});
