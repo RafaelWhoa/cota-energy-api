@@ -1,6 +1,12 @@
 import dayjs from "dayjs";
 import {Charging} from "../../shared/models/Charging.js";
 
+/**
+ * Start charging instance on database
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 export const startCharging = async (req, res) => {
     const charging = await Charging.create({
         connector_id: req.body.connector_id,
@@ -9,6 +15,12 @@ export const startCharging = async (req, res) => {
     res.status(201).json({message: "Charging saved successfully", charging: charging});
 }
 
+/**
+ * Update charging data
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 export const updateCharging = async (req, res) => {
     const chargingId = req.params.id;
     const totalPower = req.body.total_power;
